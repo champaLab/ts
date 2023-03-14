@@ -22,6 +22,6 @@ router.use("/", test);
 // router.use("/", calendarApi);
 // router.use("/", dashboardApi);
 // router.use("/", contactApi);
-// router.use("/", khamkhom);
+router.use("/", khamkhom);
 
 export default router;
