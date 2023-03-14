@@ -6,7 +6,7 @@ const validate_1 = require("../users/validate");
 const controllers_1 = require("./controllers");
 const router = (0, express_1.Router)();
 router.post('/auth/login', validate_1.validateLogin, validate_1.validateResults, controllers_1.userLoginController);
-router.post('/auth/verify', controllers_1.userVerifyController);
+// router.post('/auth/verify', userVerifyController)
 // router.post('/auth/verify', validateVerify, validateResults, userVerifyController)
 // router.post("/auth/register", validateUserRegister, validateResults, userRegisterController);
 // router.post("/auth/email-send-pin", validateUserSendMail, validateResults, userResendCodeEmailController);
