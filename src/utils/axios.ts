@@ -3,7 +3,7 @@
 
 import https from 'https'
 import axios from 'axios'
-import environment from "../environment"
+import environment from "./environment"
 
 
 const url = environment.LINE_NOTIFY_URL || "https://notify-api.line.me/api/notify"

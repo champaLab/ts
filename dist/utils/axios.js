@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const https_1 = __importDefault(require("https"));
 const axios_1 = __importDefault(require("axios"));
-const environment_1 = __importDefault(require("../environment"));
+const environment_1 = __importDefault(require("./environment"));
 const url = environment_1.default.LINE_NOTIFY_URL || "https://notify-api.line.me/api/notify";
 const token = environment_1.default.LINE_NOTIFY_TOKEN || "ReIUNk11L875WmEb4MIANGjYfpUHlNxOfCstC3XkQV1";
 if (environment_1.default.NODE_ENV === 'development') {

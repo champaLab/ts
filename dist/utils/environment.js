@@ -21,7 +21,7 @@ exports.default = {
     SOCKET_TOPIC_SERVER: process.env.SOCKET_TOPIC_SERVER,
     SOCKET_TOPIC_CLIENT: process.env.SOCKET_TOPIC_CLIENT,
     PORT: parseInt(`${process.env.PORT}`) || 7733,
-    BASE_PATH: process.env.BASE_PATH || "",
+    BASE_PATH: process.env.BASE_PATH || "/",
     HOST: process.env.HOST || "localhost",
     NODE_PORT: process.env.NODE_PORT,
     PWD: process.env.PWD || process.cwd(),

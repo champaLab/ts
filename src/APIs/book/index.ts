@@ -2,8 +2,8 @@
 
 import { createBookController, editorGetNewBookController, removeBookController, getBookByBookTypeController, updateBookController, getMyBookController, adminApproveBookController, editorApproveBookController, adminGetNewBookController, getBookSearchController, } from './controllers';
 import { validateSchema, validateSearchSchema, validateResults } from './validate';
-import { verify } from './../../utils/jwt';
 import { Router } from 'express'
+import { verify } from '../../utils/jwt';
 
 const router = Router()
 

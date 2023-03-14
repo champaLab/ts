@@ -1,4 +1,4 @@
-import environment from '../environment';
+import environment from './environment';
 import crypto from 'crypto'
 const ENCRYPTION_KEY = environment.ENCRYPTION_KEY || '7nB3rrON3PrDR4y4s6liBNC4M4P562kg'; // Must be 256 bits (32 characters)
 const IV_LENGTH = 16; // For AES, this is always 16

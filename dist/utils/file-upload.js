@@ -7,7 +7,7 @@ exports.uploadFile = void 0;
 const multer_1 = __importDefault(require("multer"));
 const multer_2 = require("multer");
 const path_1 = require("path");
-const environment_1 = __importDefault(require("./../environment"));
+const environment_1 = __importDefault(require("./environment"));
 const uploadFile = () => (0, multer_1.default)({
     storage: (0, multer_2.diskStorage)({
         destination: (0, path_1.resolve)(`${environment_1.default.PWD}`),

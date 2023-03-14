@@ -7,7 +7,7 @@ exports.whatsappBotVerifySender = exports.whatsappBotSender = exports.whatsappBo
 const qrcode_terminal_1 = __importDefault(require("qrcode-terminal"));
 const whatsapp_web_js_1 = require("whatsapp-web.js");
 const services_1 = require("../APIs/book/services");
-const environment_1 = __importDefault(require("../environment"));
+const environment_1 = __importDefault(require("./environment"));
 const line_notice_1 = require("./line-notice");
 const node_cron_1 = __importDefault(require("node-cron"));
 const dayjs_1 = __importDefault(require("dayjs"));

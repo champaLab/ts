@@ -1,7 +1,7 @@
 import multer from 'multer'
 import { diskStorage } from 'multer'
 import { resolve } from 'path'
-import environment from './../environment'
+import environment from './environment'
 import dayjs from 'dayjs'
 
 

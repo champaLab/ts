@@ -7,7 +7,7 @@ import prisma from '../../prisma'
 import "../../utils/extensions"
 import { lineNotify } from '../../utils/line-notice'
 import { whatsappBotSender } from '../../utils/whatsapp-bot';
-import { getKhamkhomService } from '../khamkhom/services';
+import { getKhamkhomService } from '../khamkhom/services'
 
 
 export const editorGetNewBookService = async (user: ITokenPayload) => {
@@ -21,8 +21,6 @@ export const editorGetNewBookService = async (user: ITokenPayload) => {
             ORDER BY B.created_at DESC`
 
         console.log(book)
-
-
 
         await prisma.$disconnect()
         return book

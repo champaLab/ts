@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const controllers_1 = require("./controllers");
 const validate_1 = require("./validate");
-const jwt_1 = require("./../../utils/jwt");
 const express_1 = require("express");
+const jwt_1 = require("../../utils/jwt");
 const router = (0, express_1.Router)();
 router.post('/books/search', validate_1.validateSearchSchema, validate_1.validateResults, controllers_1.getBookSearchController);
 router.get('/get-books-by-type/:id', controllers_1.getBookByBookTypeController);

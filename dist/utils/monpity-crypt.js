@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.decrypt = exports.encrypt = void 0;
-const environment_1 = __importDefault(require("../environment"));
+const environment_1 = __importDefault(require("./environment"));
 const crypto_1 = __importDefault(require("crypto"));
 const ENCRYPTION_KEY = environment_1.default.ENCRYPTION_KEY || '7nB3rrON3PrDR4y4s6liBNC4M4P562kg'; // Must be 256 bits (32 characters)
 const IV_LENGTH = 16; // For AES, this is always 16

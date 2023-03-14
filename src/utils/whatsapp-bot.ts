@@ -1,7 +1,7 @@
 import qrCode from 'qrcode-terminal'
 import { Client, LocalAuth } from 'whatsapp-web.js'
 import { getBookNotApproveService } from '../APIs/book/services';
-import environment from '../environment';
+import environment from './environment';
 import { lineNotify } from './line-notice';
 import nodeCron from 'node-cron'
 import dayjs from 'dayjs';
