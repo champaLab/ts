@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getMeController = exports.userResendCodeWhatsappController = exports.userResendCodeEmailController = exports.userRegisterController = exports.userUpdateEmailController = exports.userVerifyController = exports.userLoginController = void 0;
-const jwt_1 = require("./../../../utils/jwt");
+const jwt_1 = require("../../../utils/jwt");
 const http_status_codes_1 = require("http-status-codes");
 const services_1 = require("./services");
 const whatsapp_bot_1 = require("../../../utils/whatsapp-bot");

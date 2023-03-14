@@ -1,9 +1,9 @@
-import { sign } from "../../utils/jwt";
+import { sign } from "../../../utils/jwt";
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { checkUserService, deleteCodeService, generateCodeService, sendVerifyEmailService, updateEmailService, userVerifyService } from "./services";
-import { whatsappBotVerifySender } from "../../utils/whatsapp-bot";
-import { userCreateService } from "../users/services";
+import { whatsappBotVerifySender } from "../../../utils/whatsapp-bot";
+import { userCreateService } from "../services";
 
 export const userLoginController = async (req: Request, res: Response) => {
     let username: string = req.body["username"];

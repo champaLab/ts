@@ -1,6 +1,6 @@
-import prisma from "../../prisma"
+import prisma from "../../../prisma"
 import nodemailer from 'nodemailer'
-import transporter from '../../utils/mail-config'
+import transporter from '../../../utils/mail-config'
 const transport = nodemailer.createTransport(transporter)
 
 

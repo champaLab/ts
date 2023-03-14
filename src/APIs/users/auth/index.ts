@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import { verify } from '../../utils/jwt'
-import { validateLogin, validateResults, validateUserRegister, validateUserSendMail, validateVerify } from '../users/validate'
+import { verify } from '../../../utils/jwt'
+import { validateLogin, validateResults, validateUserRegister, validateUserSendMail, validateVerify } from '../validate'
 import { userLoginController, getMeController, userVerifyController, userRegisterController, userResendCodeWhatsappController, userResendCodeEmailController } from './controllers'
 
 const router = Router()
