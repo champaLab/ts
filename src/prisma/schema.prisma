@@ -1,0 +1,137 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model tbl_book_types {
+  bt_id      Int       @id @default(autoincrement())
+  icon       String    @db.VarChar(255)
+  title      String    @unique(map: "name_UNIQUE") @db.VarChar(255)
+  bt_index   Int
+  subtitle   String?   @db.VarChar(225)
+  created_by Int
+  updated_by Int?
+  created_at DateTime  @db.DateTime(0)
+  updated_at DateTime? @db.DateTime(0)
+}
+
+model tbl_books {
+  b_id                 Int       @id @default(autoincrement())
+  title                String    @unique(map: "title_UNIQUE") @db.VarChar(300)
+  content              String    @db.LongText
+  book_type_id         Int
+  created_by           Int
+  created_at           DateTime  @db.DateTime(0)
+  b_index              Int?      @default(1)
+  updated_at           DateTime? @db.DateTime(0)
+  updated_by           Int?
+  editor_checking_by   Int?
+  editor_checking_date DateTime? @db.DateTime(0)
+  editor_approved_by   Int?
+  editor_approved_date DateTime? @db.DateTime(0)
+  admin_checking_by    Int?
+  admin_checking_date  DateTime? @db.DateTime(0)
+  admin_approved_by    Int?
+  admin_approved_date  DateTime? @db.DateTime(0)
+}
+
+model tbl_calendars {
+  ca_id            Int       @id @default(autoincrement())
+  province_id      Int
+  city_id          Int
+  temple_name      String    @db.VarChar(45)
+  village          String    @db.VarChar(105)
+  date_festival    DateTime  @db.DateTime(0)
+  created_by       Int
+  created_at       DateTime  @db.DateTime(0)
+  updated_by       Int?
+  updated_at       DateTime? @db.DateTime(0)
+  festival_type_id Int
+  tel              String    @db.VarChar(15)
+  whatsapp         String    @db.VarChar(15)
+}
+
+model tbl_cities {
+  ci_id        Int       @id @default(autoincrement())
+  city_name    String    @db.VarChar(225)
+  city_name_en String?   @db.VarChar(225)
+  created_by   Int?
+  created_at   DateTime? @db.DateTime(0)
+  updated_by   Int?
+  updated_at   DateTime? @db.DateTime(0)
+  province_id  Int?
+
+  @@index([created_by], map: "created_by_idx")
+  @@index([province_id], map: "province_id_idx")
+  @@index([updated_by], map: "updated_by_idx")
+}
+
+model tbl_contact {
+  id       Int     @id @default(autoincrement())
+  tel      String? @db.VarChar(20)
+  whatsapp String? @db.VarChar(20)
+  email    String? @db.VarChar(45)
+  line     String? @db.VarChar(45)
+}
+
+model tbl_festival {
+  fe_id         Int       @id @default(autoincrement())
+  festival_name String    @unique(map: "name_UNIQUE") @db.VarChar(225)
+  created_by    Int
+  created_at    DateTime  @db.DateTime(0)
+  updated_by    Int?
+  updated_at    DateTime? @db.DateTime(0)
+}
+
+model tbl_khamkhom {
+  id         Int      @id @default(autoincrement())
+  title      String   @unique(map: "title_UNIQUE") @db.VarChar(335)
+  created_at DateTime @db.DateTime(0)
+  created_by Int      @default(1)
+}
+
+model tbl_provinces {
+  pro_id           Int       @id @default(autoincrement())
+  province_name    String    @unique(map: "province_name_UNIQUE") @db.VarChar(255)
+  province_name_en String?   @db.VarChar(225)
+  created_by       Int?
+  created_at       DateTime? @db.DateTime(0)
+  updated_by       Int?
+  updated_at       DateTime? @db.DateTime(0)
+}
+
+model tbl_silder {
+  slide_id   Int       @id
+  index      Int?      @default(1)
+  path       String?   @db.VarChar(45)
+  status     String?   @default("On") @db.VarChar(45)
+  created_by Int
+  created_at DateTime? @db.DateTime(0)
+}
+
+model tbl_users {
+  u_id       Int       @id @default(autoincrement())
+  name       String    @db.VarChar(45)
+  email      String?   @unique(map: "email_UNIQUE") @db.VarChar(45)
+  whatsapp   String?   @unique(map: "whatsapp_UNIQUE") @db.VarChar(45)
+  password   String?   @db.VarChar(300)
+  role       String?   @default("Editor") @db.VarChar(45)
+  status     String?   @default("On") @db.VarChar(45)
+  created_at DateTime  @db.DateTime(0)
+  updated_at DateTime? @db.DateTime(0)
+  last_login DateTime? @db.DateTime(0)
+  verify     DateTime? @db.DateTime(0)
+}
+
+model tbl_verify_login {
+  id         Int      @id @unique(map: "id_UNIQUE") @default(autoincrement())
+  username   String   @unique(map: "username_UNIQUE") @db.VarChar(100)
+  code       Int
+  created_at DateTime @db.DateTime(0)
+  updated_at String?  @db.VarChar(45)
+}
