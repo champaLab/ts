@@ -1,6 +1,5 @@
 import prisma from "../../prisma";
-import { IUserProfile, User } from "../../types";
-import { tbl_users } from "@prisma/client";
+import { IUserProfile } from "../../types";
 import { encrypt } from "../../utils/monpity-crypt";
 
 
