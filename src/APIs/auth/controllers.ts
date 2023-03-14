@@ -227,7 +227,6 @@ export const userResendCodeWhatsappController = async (req: Request, res: Respon
     return res.status(StatusCodes.OK).json({ status: "success", message: "ການລົງທະບຽນ ສຳເລັດ" });
 };
 
-
 export const getMeController = async (req: Request, res: Response) => {
 
     let user = req.body.user

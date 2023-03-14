@@ -119,7 +119,7 @@ const sendVerifyEmailService = async (email, pinCode) => {
         const res = await transport.sendMail(mailOption);
         if (res) {
             console.log("<-------------------------------------------------------------------->\n");
-            console.log(`> Mail verify is sent to      ------------->        ${email}`);
+            console.log(`> Mail verify is sent to  -------------> ${email}`);
             console.log(res);
             console.log("\n<-------------------------------------------------------------------->\n");
         }
