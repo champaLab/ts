@@ -10,6 +10,10 @@ app.get('/', async (req, res) => {
     let pro = await prisma_1.default.tbl_provinces.findMany();
     return res.send(pro);
 });
+app.get('/a', async (req, res) => {
+    let pro = await prisma_1.default.tbl_provinces.findMany();
+    return res.send(pro);
+});
 const port = 3000;
 app.listen(port, () => {
     console.log("server listening on port " + port);
