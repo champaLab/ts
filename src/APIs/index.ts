@@ -10,7 +10,6 @@ import festivalApi from "./festival";
 import dashboardApi from "./dashboard";
 import contactApi from "./contact";
 import khamkhom from "./khamkhom";
-import auth from "./auth";
 
 const router = Router();
 router.use("/", test);
