@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const jwt_1 = require("../../utils/jwt");
 const validate_1 = require("../users/validate");
 const controllers_1 = require("./controllers");
 const router = (0, express_1.Router)();
@@ -11,5 +10,5 @@ router.post('/auth/login', validate_1.validateLogin, validate_1.validateResults,
 // router.post("/auth/register", validateUserRegister, validateResults, userRegisterController);
 // router.post("/auth/email-send-pin", validateUserSendMail, validateResults, userResendCodeEmailController);
 // router.post("/auth/whatsapp-send-pin", validateUserRegister, validateResults, userResendCodeWhatsappController);
-router.post('/me', jwt_1.verify, controllers_1.getMeController);
+// router.post('/me', verify, getMeController)
 exports.default = router;
