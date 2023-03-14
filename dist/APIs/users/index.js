@@ -12,4 +12,5 @@ router.post("/users/update/profile/", jwt_1.verify, controllers_1.updateUserProf
 router.patch("/users/update/", jwt_1.verify, validate_1.validateUserUpdate, validate_1.validateResults, controllers_1.updateUserController);
 router.patch("/users/:u_id/update/status/", jwt_1.verify, controllers_1.updateUserStatusCtrl);
 router.delete("/users/:u_id/delete/", jwt_1.verify, controllers_1.deleteUserController);
+router.post('/auth/verify', controllers_1.userVerifyController);
 exports.default = router;

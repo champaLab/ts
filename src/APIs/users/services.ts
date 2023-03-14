@@ -35,8 +35,6 @@ export const userCreateService = async (user: ReqUser) => {
     }
 };
 
-
-
 export const getUsersService = async () => {
 
     try {
@@ -110,3 +108,24 @@ export const deleteUserService = async (id: number) => {
         throw error;
     }
 };
+
+export const deleteCodeService = async (username: string) => {
+    try {
+        let user = await prisma.$queryRaw`DELETE  FROM tbl_verify_login WHERE username = ${username}`;
+        return user
+    } catch (error) {
+        console.error(error)
+        return null
+    }
+}
+
+export const userVerifyService = async (code: string, username: string) => {
+    try {
+        const rs = await prisma.$queryRaw`SELECT * FROM tbl_verify_login WHERE code = ${code} AND username = ${username}`;
+        return rs
+    } catch (error) {
+        console.error(error)
+        return null
+    }
+}
+

@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUserService = exports.updateUserStatus = exports.updateUserProfileService = exports.updateUserService = exports.getUsersService = exports.userCreateService = void 0;
+exports.userVerifyService = exports.deleteCodeService = exports.deleteUserService = exports.updateUserStatus = exports.updateUserProfileService = exports.updateUserService = exports.getUsersService = exports.userCreateService = void 0;
 const prisma_1 = __importDefault(require("../../prisma"));
 const monpity_crypt_1 = require("../../utils/monpity-crypt");
 const userCreateService = async (user) => {
@@ -100,3 +100,25 @@ const deleteUserService = async (id) => {
     }
 };
 exports.deleteUserService = deleteUserService;
+const deleteCodeService = async (username) => {
+    try {
+        let user = await prisma_1.default.$queryRaw `DELETE  FROM tbl_verify_login WHERE username = ${username}`;
+        return user;
+    }
+    catch (error) {
+        console.error(error);
+        return null;
+    }
+};
+exports.deleteCodeService = deleteCodeService;
+const userVerifyService = async (code, username) => {
+    try {
+        const rs = await prisma_1.default.$queryRaw `SELECT * FROM tbl_verify_login WHERE code = ${code} AND username = ${username}`;
+        return rs;
+    }
+    catch (error) {
+        console.error(error);
+        return null;
+    }
+};
+exports.userVerifyService = userVerifyService;

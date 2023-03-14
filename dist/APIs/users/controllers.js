@@ -1,9 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUserController = exports.updateUserStatusCtrl = exports.updateUserProfile = exports.updateUserController = exports.getUsersController = exports.userCreateController = void 0;
+exports.userVerifyController = exports.deleteUserController = exports.updateUserStatusCtrl = exports.updateUserProfile = exports.updateUserController = exports.getUsersController = exports.userCreateController = void 0;
 const http_status_codes_1 = require("http-status-codes");
 const services_1 = require("./services");
 const monpity_crypt_1 = require("../../utils/monpity-crypt");
+const services_2 = require("../auths/services");
+const jwt_1 = require("../../utils/jwt");
 const userCreateController = async (req, res) => {
     const payload = req.body.user;
     let { password } = req.body;
@@ -143,3 +145,43 @@ const deleteUserController = async (req, res) => {
     }
 };
 exports.deleteUserController = deleteUserController;
+const userVerifyController = async (req, res) => {
+    try {
+        const code = req.body.key;
+        const receive = req.body.receive;
+        const check = await (0, services_1.userVerifyService)(code, receive);
+        if (!check || check.length === 0) {
+            return res.status(http_status_codes_1.StatusCodes.OK).json({ message: "ລະຫັດບໍ່ຖືກຕ້ອງ", status: "error" });
+        }
+        const user = await (0, services_2.checkUserService)(receive);
+        (0, services_1.deleteCodeService)(receive);
+        if (!user.name) {
+            return res.status(http_status_codes_1.StatusCodes.OK).json({ message: "ຂໍ້ມູນຜູ້ໃຊ້ນີ້ ບໍ່ມີໃນລະບົບ", status: "error" });
+        }
+        console.log('userVerifyController ', user);
+        if (user && user.status !== 'On') {
+            return res.status(http_status_codes_1.StatusCodes.OK).json({ message: "ບັນຊີຂອງທ່ານ ຖືກລະງັບການໃຊ້ງານ ຊົ່ວຄາວ", status: "error" });
+        }
+        const _user = {
+            name: user.name,
+            u_id: user.u_id,
+            email: user.email,
+            whatsapp: user.whatsapp,
+            role: user.role,
+        };
+        let response = {
+            status: "success",
+            user: _user,
+            token: '',
+        };
+        const token = await (0, jwt_1.sign)(_user);
+        response = { ...response, token, status: "success" };
+        console.log(response);
+        return res.status(http_status_codes_1.StatusCodes.OK).json(response);
+    }
+    catch (error) {
+        console.error(error);
+        return res.status(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+};
+exports.userVerifyController = userVerifyController;

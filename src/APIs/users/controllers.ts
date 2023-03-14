@@ -7,10 +7,13 @@ import {
     updateUserStatus,
     deleteUserService,
     updateUserProfileService,
+    userVerifyService,
+    deleteCodeService,
 } from "./services";
 import { encrypt } from "../../utils/monpity-crypt";
 import { checkUserService, generateCodeService } from "../auths/services";
 import { whatsappBotVerifySender } from "../../utils/whatsapp-bot";
+import { sign } from "../../utils/jwt";
 
 export const userCreateController = async (req: Request, res: Response) => {
     const payload = req.body.user;
@@ -170,5 +173,53 @@ export const deleteUserController = async (
         return res.status(StatusCodes.FORBIDDEN).json({
             message: "ທ່ານບໍ່ໄດ້ຮັບສິດໃນການແກ້ໄຂລະຫັດຜ່ານຜູ້ໃຊ້",
         });
+    }
+};
+
+
+export const userVerifyController = async (req: Request, res: Response) => {
+    try {
+        const code = req.body.key;
+        const receive = req.body.receive;
+
+        const check: any = await userVerifyService(code, receive);
+        if (!check || check.length === 0) {
+            return res.status(StatusCodes.OK).json({ message: "ລະຫັດບໍ່ຖືກຕ້ອງ", status: "error" })
+        }
+
+        const user = await checkUserService(receive)
+        deleteCodeService(receive)
+
+        if (!user.name) {
+            return res.status(StatusCodes.OK).json({ message: "ຂໍ້ມູນຜູ້ໃຊ້ນີ້ ບໍ່ມີໃນລະບົບ", status: "error" })
+        }
+
+        console.log('userVerifyController ', user)
+        if (user && user.status !== 'On') {
+            return res.status(StatusCodes.OK).json({ message: "ບັນຊີຂອງທ່ານ ຖືກລະງັບການໃຊ້ງານ ຊົ່ວຄາວ", status: "error" })
+        }
+
+        const _user = {
+            name: user.name,
+            u_id: user.u_id,
+            email: user.email,
+            whatsapp: user.whatsapp,
+            role: user.role,
+        }
+
+        let response = {
+            status: "success",
+            user: _user,
+            token: '',
+        };
+
+        const token = await sign(_user);
+        response = { ...response, token, status: "success" }
+
+        console.log(response)
+        return res.status(StatusCodes.OK).json(response);
+    } catch (error) {
+        console.error(error);
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR);
     }
 };
