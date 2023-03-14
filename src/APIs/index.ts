@@ -14,7 +14,7 @@ import khamkhom from "./khamkhom";
 const router = Router();
 router.use("/", test);
 // router.use("/", userApi);
-router.use("/", bookApi);
+// router.use("/", bookApi);
 // router.use("/", bookTypeApi);
 // router.use("/", cityApi);
 // router.use("/", provinceApi);
