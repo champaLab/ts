@@ -128,6 +128,17 @@ model tbl_users {
   verify     DateTime? @db.DateTime(0)
 }
 
+model tbl_verify_email {
+  id            Int       @id @default(autoincrement())
+  email         String?   @db.VarChar(255)
+  ip            String?   @db.VarChar(45)
+  token         String?   @db.Text
+  pin_code      String?   @db.VarChar(10)
+  created_date  DateTime? @db.DateTime(0)
+  verify_status String?   @default("no") @db.VarChar(45)
+  verify_date   DateTime? @db.DateTime(0)
+}
+
 model tbl_verify_login {
   id         Int      @id @unique(map: "id_UNIQUE") @default(autoincrement())
   username   String   @unique(map: "username_UNIQUE") @db.VarChar(100)
