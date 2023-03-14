@@ -4,9 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const prisma_1 = __importDefault(require("./prisma"));
 const app = (0, express_1.default)();
-app.get('/', function (req, res) {
-    res.send('Hello World');
+app.get('/', async (req, res) => {
+    let pro = await prisma_1.default.tbl_provinces.findMany();
+    return res.send(pro);
 });
 const port = 3000;
 app.listen(port, () => {

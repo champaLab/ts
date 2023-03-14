@@ -1,8 +1,11 @@
 import express from 'express'
+import prisma from './prisma'
 const app = express()
 
-app.get('/', function (req: any, res: any) {
-    res.send('Hello World')
+app.get('/', async (req: any, res: any) => {
+
+    let pro = await prisma.tbl_provinces.findMany()
+    return res.send(pro)
 })
 
 const port = 3000
