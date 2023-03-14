@@ -5,7 +5,7 @@ import { userLoginController, getMeController, userVerifyController, userRegiste
 
 const router = Router()
 
-router.post('/auth/login', validateLogin, validateResults, userLoginController)
+// router.post('/auth/login', validateLogin, validateResults, userLoginController)
 // router.post('/auth/verify', userVerifyController)
 // router.post('/auth/verify', validateVerify, validateResults, userVerifyController)
 // router.post("/auth/register", validateUserRegister, validateResults, userRegisterController);
