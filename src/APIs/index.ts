@@ -19,7 +19,7 @@ router.use("/", test);
 router.use("/", cityApi);
 // router.use("/", provinceApi);
 // router.use("/", festivalApi);
-// router.use("/", calendarApi);
+router.use("/", calendarApi);
 router.use("/", dashboardApi);
 router.use("/", contactApi);
 router.use("/", khamkhom);
