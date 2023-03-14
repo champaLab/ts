@@ -9,7 +9,7 @@ import {
     updateUserProfileService,
 } from "./services";
 import { encrypt } from "../../utils/monpity-crypt";
-import { checkUserService, generateCodeService } from "./auth/services";
+import { checkUserService, generateCodeService } from "../auth/services";
 import { whatsappBotVerifySender } from "../../utils/whatsapp-bot";
 
 export const userCreateController = async (req: Request, res: Response) => {
