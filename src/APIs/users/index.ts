@@ -10,7 +10,7 @@ import {
     userVerifyController,
 
 } from "./controllers";
-import { validateUser, validateResults, validateUserUpdate, } from "./validate";
+import { validateUser, validateResults, validateUserUpdate, validateVerify, } from "./validate";
 
 const router = Router();
 
@@ -21,6 +21,6 @@ router.post("/users/update/profile/", verify, updateUserProfile);
 router.patch("/users/update/", verify, validateUserUpdate, validateResults, updateUserController);
 router.patch("/users/:u_id/update/status/", verify, updateUserStatusCtrl);
 router.delete("/users/:u_id/delete/", verify, deleteUserController);
-router.post('/auth/verify', userVerifyController)
+router.post('/auth/verify', validateVerify, validateResults, userVerifyController)
 
 export default router;
