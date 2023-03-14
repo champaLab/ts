@@ -15,7 +15,7 @@ import auth from "./auth";
 const router = Router();
 router.use("/", test);
 router.use("/", userApi);
-router.use("/", auth);
+// router.use("/", auth);
 // router.use("/", bookApi);
 router.use("/", bookTypeApi);
 router.use("/", cityApi);
