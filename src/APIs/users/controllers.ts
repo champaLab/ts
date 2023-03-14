@@ -9,6 +9,7 @@ import {
     updateUserProfileService,
     userVerifyService,
     deleteCodeService,
+    sendVerifyEmailService,
 } from "./services";
 import { encrypt } from "../../utils/monpity-crypt";
 import { checkUserService, generateCodeService } from "../auths/services";
@@ -223,3 +224,190 @@ export const userVerifyController = async (req: Request, res: Response) => {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR);
     }
 };
+
+
+// 
+
+export const userLoginController = async (req: Request, res: Response) => {
+    let username: string = req.body["username"];
+    const loginBy: string = req.body["loginBy"];
+
+
+    try {
+        const user = await checkUserService(username);
+        if (!user) {
+            return res.status(StatusCodes.OK).json({ message: "ຂໍ້ມູນຜູ້ໃຊ້ນີ້ ບໍ່ມີໃນລະບົບ", status: "error" })
+        }
+
+        const code = await generateCodeService(username);
+        if (!code) {
+            return res.status(StatusCodes.OK).json({ message: "ການສ້າງ ລະຫັດຜິດພາດ ລອງໃໝ່ອີກຄັ້ງ" })
+        }
+
+        if (loginBy === "whatsapp") {
+            const whatsapp = user?.whatsapp || ''
+            whatsappBotVerifySender(whatsapp, code)
+        } else if (loginBy === "email") {
+            // TODO: Call function sens mail
+            sendVerifyEmailService(username, code)
+        } else {
+            return res.status(StatusCodes.OK).json({ status: "error", message: "ຮູບແບບການເຂົ້າສູ່ລະບົບບໍ່ຖືກຕ້ອງ" });
+        }
+
+
+        return res.status(StatusCodes.OK).json({ status: "success" })
+
+    } catch (error) {
+        console.error(error);
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+};
+
+// export const userUpdateEmailController = async (req: Request, res: Response) => {
+
+//     const u_id = req.body.u_id
+//     const email = req.body.email
+//     const created_at = req.body.created_at
+
+
+//     const result: any = await checkUserService(email);
+//     console.log("7777 ", result)
+//     if (result.check_user) {
+//         return res.status(StatusCodes.OK).json({
+//             status: "error",
+//             message: "Email ມີໃນລະບົບແລ້ວ ກະລຸນາໃຊ້ເມວອື່ນ",
+//         });
+//     }
+
+//     const user: any = await updateEmailService(
+//         u_id,
+//         email,
+//         created_at,
+//     )
+
+//     console.log(user)
+
+//     if (!user) {
+//         return res.status(StatusCodes.OK).json({
+//             status: "error",
+//             message: "ອັບເດດ Email ຜິດພາດ",
+//         });
+//     }
+
+//     const code = await generateCodeService(email);
+//     if (!code) {
+//         return res.status(StatusCodes.OK).json({ message: "ການສ້າງ ລະຫັດຜິດພາດ ລອງໃໝ່ອີກຄັ້ງ" })
+//     }
+
+//     try {
+//         // TODO: call function to send email
+//     } catch (error) {
+//         console.log("send whatsapp error ", error)
+//     }
+
+//     return res.status(StatusCodes.OK).json({ status: "success", message: "ການລົງທະບຽນ ສຳເລັດ" });
+// };
+
+// export const userRegisterController = async (req: Request, res: Response) => {
+
+//     const name = req.body.name
+//     const whatsapp = req.body.whatsapp
+//     const email = req.body.email
+//     const role = "Member"
+//     const created_at = req.body.created_at
+
+//     const resultW: any = await checkUserService(whatsapp);
+
+//     if (resultW.check_user) {
+//         return res.status(StatusCodes.OK).json({
+//             status: "error",
+//             message: "ໝາຍເລກ Whatsapp ມີໃນລະບົບແລ້ວ",
+//         });
+//     }
+
+//     const resultE: any = await checkUserService(email);
+
+//     if (resultE.check_user) {
+//         return res.status(StatusCodes.OK).json({
+//             status: "error",
+//             message: "Email ນີ້ມີໃນລະບົບແລ້ວ",
+//         });
+//     }
+
+//     const user: any = await userCreateService({
+//         name,
+//         whatsapp: whatsapp,
+//         role,
+//         email,
+//         created_at,
+//         last_login: created_at
+//     })
+
+//     if (!user) {
+//         return res.status(StatusCodes.OK).json({
+//             status: "error",
+//             message: "ການລົງທະບຽນຜິດພາດ",
+//         });
+//     }
+
+//     const code = await generateCodeService(whatsapp);
+//     if (!code) {
+//         return res.status(StatusCodes.OK).json({ status: "success", message: "ການສ້າງ ລະຫັດຜິດພາດ ລອງໃໝ່ອີກຄັ້ງ" })
+//     }
+
+//     try {
+//         whatsappBotVerifySender(whatsapp, code)
+//     } catch (error) {
+//         console.log("send whatsapp error ", error)
+//     }
+
+//     return res.status(StatusCodes.OK).json({ status: "success", message: " " });
+// };
+
+// export const userResendCodeEmailController = async (req: Request, res: Response) => {
+
+//     const email = req.body.email
+//     console.log(email)
+
+//     const code = await generateCodeService(email);
+//     if (!code) {
+//         return res.status(StatusCodes.OK).json({ status: "success", message: "ການສ້າງ ລະຫັດຜິດພາດ ລອງໃໝ່ອີກຄັ້ງ" })
+//     }
+
+//     try {
+//         await sendVerifyEmailService(email, code)
+//         return
+//     } catch (error) {
+//         console.log("send email error ", error)
+//         return
+//     }
+
+//     return res.status(StatusCodes.OK).json({ status: "success", message: "ການລົງທະບຽນ ສຳເລັດ" });
+// };
+
+// export const userResendCodeWhatsappController = async (req: Request, res: Response) => {
+
+//     const whatsapp = req.body.whatsapp
+
+//     const code = await generateCodeService(whatsapp);
+//     if (!code) {
+//         return res.status(StatusCodes.OK).json({ status: "success", message: "ການສ້າງ ລະຫັດຜິດພາດ ລອງໃໝ່ອີກຄັ້ງ" })
+//     }
+
+//     try {
+//         whatsappBotVerifySender(whatsapp, code)
+//     } catch (error) {
+//         console.log("send whatsapp error ", error)
+//     }
+
+//     return res.status(StatusCodes.OK).json({ status: "success", message: "ການລົງທະບຽນ ສຳເລັດ" });
+// };
+
+// export const getMeController = async (req: Request, res: Response) => {
+
+//     let user = req.body.user
+//     console.log('========================= USER REFRESH =======================================')
+//     console.log(user)
+
+//     return res.status(StatusCodes.OK).json({ status: "success", user });
+// };
