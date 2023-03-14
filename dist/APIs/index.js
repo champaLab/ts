@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const test_1 = __importDefault(require("./test"));
-const book_1 = __importDefault(require("./book"));
 const bookTypes_1 = __importDefault(require("./bookTypes"));
 const province_1 = __importDefault(require("./province"));
 const city_1 = __importDefault(require("./city"));
@@ -17,7 +16,7 @@ const khamkhom_1 = __importDefault(require("./khamkhom"));
 const router = (0, express_1.Router)();
 router.use("/", test_1.default);
 // router.use("/", userApi);
-router.use("/", book_1.default);
+// router.use("/", bookApi);
 router.use("/", bookTypes_1.default);
 router.use("/", city_1.default);
 router.use("/", province_1.default);
