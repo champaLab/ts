@@ -5,7 +5,6 @@ const express_1 = require("express");
 const controllers_1 = require("./controllers");
 const validate_1 = require("./validate");
 const router = (0, express_1.Router)();
-// router.use("/auth", authApi);
 router.post("/users/create", jwt_1.verify, validate_1.validateUser, validate_1.validateResults, controllers_1.userCreateController);
 router.get("/users/", jwt_1.verify, controllers_1.getUsersController);
 router.post("/users/update/profile/", jwt_1.verify, controllers_1.updateUserProfile);

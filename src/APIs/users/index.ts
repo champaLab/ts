@@ -1,6 +1,5 @@
 import { verify } from "./../../utils/jwt";
 import { Router } from "express";
-import authApi from "./auth";
 import {
     userCreateController,
     getUsersController,
@@ -13,8 +12,6 @@ import {
 import { validateUser, validateResults, validateUserUpdate, } from "./validate";
 
 const router = Router();
-
-// router.use("/auth", authApi);
 router.post("/users/create", verify, validateUser, validateResults, userCreateController);
 router.get("/users/", verify, getUsersController);
 router.post("/users/update/profile/", verify, updateUserProfile);
