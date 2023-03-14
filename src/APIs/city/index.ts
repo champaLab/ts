@@ -5,7 +5,8 @@ import { Router } from 'express'
 
 const router = Router()
 
-router.get('/cities/', verify, getCityController)
+// router.get('/cities/', verify, getCityController)
+router.get('/cities/', getCityController)
 router.post('/cities', verify, validateGetCitiesSchema, validateResults, getCityByProIdController)
 router.post('/cities/create/', verify, validateSchema, validateResults, createCityController)
 router.post('/cities/update/', verify, validateSchema, validateResults, updateCityController)
